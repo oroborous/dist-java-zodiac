@@ -26,7 +26,6 @@ public class HoroscopeController {
     @PostMapping("/get-horoscope")
     public String processForm(@ModelAttribute Birthday bday,
                               Model model) {
-        model.addAttribute("pageTitle", "Know Your Fate");
         model.addAttribute("hs", horoscopeService.getHoroscope(bday));
 
         return "horoscope";
@@ -34,7 +33,6 @@ public class HoroscopeController {
 
     @GetMapping("/enter-birthday")
     public String showForm(Model model) {
-        model.addAttribute("pageTitle", "Enter Your Birthday");
         model.addAttribute("monthList", monthListService.getMonths());
 
         Birthday formDefaults = new Birthday();
@@ -47,8 +45,7 @@ public class HoroscopeController {
     }
 
     @RequestMapping("/")
-    public String showHomePage(Model model) {
-        model.addAttribute("pageTitle", "Mystic Oracle Horoscopes");
+    public String showHomePage() {
         return "index";
     }
 }
