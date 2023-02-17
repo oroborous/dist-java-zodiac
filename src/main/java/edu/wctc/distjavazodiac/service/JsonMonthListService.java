@@ -2,11 +2,10 @@ package edu.wctc.distjavazodiac.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.wctc.distjavazodiac.entity.Month;
+import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,7 +23,9 @@ public class JsonMonthListService implements MonthListService {
     public void initMonths() {
         ObjectMapper mapper = new ObjectMapper();
         try {
-            Month[] monthArray = mapper.readValue(Paths.get("months.json").toFile(), Month[].class);
+            Month[] monthArray = mapper.readValue(
+                    JsonMonthListService.class.getResourceAsStream("months.json"),
+                    Month[].class);
             monthList = Arrays.asList(monthArray);
         } catch (IOException e) {
             e.printStackTrace();
