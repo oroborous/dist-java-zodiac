@@ -8,11 +8,11 @@
 
         <div th:replace="~{fragments/frags :: background}"></div>
 
-        <div class="horoscope">
-            <!--<h1 th:text="'Today\'s Horoscope for ' + ${hs.sign}">TODAY'S HOROSCOPE</h1>-->
-            <h1 th:text="|Daily Horoscope for ${hs.sign}|">TODAY'S HOROSCOPE</h1>
+        <div class="horoscope" th:object="${hs}">
+            <!--<h1 th:text="'Daily Horoscope for ' + *{sign}">DAILY HOROSCOPE</h1>-->
+            <h1 th:text="|Daily Horoscope for *{sign}|">DAILY HOROSCOPE</h1>
 
-            <p th:text="${hs.horoscope}">HOROSCOPE</p>
+            <p th:text="*{horoscope}">HOROSCOPE</p>
 
         </div>
     </div>

@@ -22,7 +22,7 @@ public class RandomHoroscopeService implements HoroscopeService {
     @Value("classpath:fortunes.json")
     private Resource fortunes;
     private List<Fortune> allFortunes;
-    private ZodiacService zodiacService;
+    private final ZodiacService zodiacService;
 
     @Autowired
     public RandomHoroscopeService(ZodiacService zodiacService) {

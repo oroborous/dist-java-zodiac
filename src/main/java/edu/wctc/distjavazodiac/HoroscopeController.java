@@ -13,9 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class HoroscopeController {
-
-    private MonthListService monthListService;
-    private HoroscopeService horoscopeService;
+    private final MonthListService monthListService;
+    private final HoroscopeService horoscopeService;
 
     @Autowired
     public HoroscopeController(MonthListService mls, HoroscopeService hs) {
