@@ -3,6 +3,8 @@ package edu.wctc.distjavazodiac.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.wctc.distjavazodiac.entity.Month;
 import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -12,6 +14,8 @@ import java.util.List;
 
 @Service
 public class JsonMonthListService implements MonthListService {
+    @Value("classpath:months.json")
+    private Resource months;
     private List<Month> monthList;
 
     @Override
@@ -24,7 +28,7 @@ public class JsonMonthListService implements MonthListService {
         ObjectMapper mapper = new ObjectMapper();
         try {
             Month[] monthArray = mapper.readValue(
-                    JsonMonthListService.class.getResourceAsStream("months.json"),
+                    months.getFile(),
                     Month[].class);
             monthList = Arrays.asList(monthArray);
         } catch (IOException e) {

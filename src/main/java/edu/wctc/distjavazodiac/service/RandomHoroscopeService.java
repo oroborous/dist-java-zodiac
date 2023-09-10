@@ -6,6 +6,8 @@ import edu.wctc.distjavazodiac.entity.Fortune;
 import edu.wctc.distjavazodiac.entity.Horoscope;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -17,6 +19,8 @@ Random horoscopes from https://cafeastrology.com/dailyhoroscopesall-tomorrow.htm
  */
 @Service
 public class RandomHoroscopeService implements HoroscopeService {
+    @Value("classpath:fortunes.json")
+    private Resource fortunes;
     private List<Fortune> allFortunes;
     private ZodiacService zodiacService;
 
@@ -48,13 +52,8 @@ public class RandomHoroscopeService implements HoroscopeService {
 
         Fortune[] fortuneArray;
         try {
-            /*
-             * To read a file that has been packaged/deployed with an application,
-             * place the file under the 'resources' folder in a subdirectory structure
-             * identical to the class that will read it.
-             */
             fortuneArray = mapper.readValue(
-                    RandomHoroscopeService.class.getResourceAsStream("fortunes.json"),
+                    fortunes.getFile(),
                     Fortune[].class);
         } catch (IOException e) {
             e.printStackTrace();
