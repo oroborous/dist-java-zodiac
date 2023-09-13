@@ -11,6 +11,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -50,15 +51,15 @@ public class RandomHoroscopeService implements HoroscopeService {
     public void initHoroscopes() {
         ObjectMapper mapper = new ObjectMapper();
 
-        Fortune[] fortuneArray;
         try {
-            fortuneArray = mapper.readValue(
+            allFortunes = mapper.readValue(
                     fortunes.getFile(),
-                    Fortune[].class);
+                    mapper.getTypeFactory()
+                            .constructCollectionType(List.class, Fortune.class)
+            );
         } catch (IOException e) {
             e.printStackTrace();
-            fortuneArray = new Fortune[]{new Fortune()};
+            allFortunes = new ArrayList<>(List.of(new Fortune()));
         }
-        allFortunes = Arrays.asList(fortuneArray);
     }
 }

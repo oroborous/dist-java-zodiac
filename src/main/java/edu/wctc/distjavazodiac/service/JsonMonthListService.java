@@ -26,11 +26,13 @@ public class JsonMonthListService implements MonthListService {
     @PostConstruct
     public void initMonths() {
         ObjectMapper mapper = new ObjectMapper();
+
         try {
-            Month[] monthArray = mapper.readValue(
+            monthList = mapper.readValue(
                     months.getFile(),
-                    Month[].class);
-            monthList = Arrays.asList(monthArray);
+                    mapper.getTypeFactory()
+                            .constructCollectionType(List.class, Month.class)
+            );
         } catch (IOException e) {
             e.printStackTrace();
             monthList = new ArrayList<>(0);
