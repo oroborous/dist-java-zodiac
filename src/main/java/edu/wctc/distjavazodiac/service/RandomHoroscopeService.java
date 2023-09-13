@@ -52,10 +52,9 @@ public class RandomHoroscopeService implements HoroscopeService {
         ObjectMapper mapper = new ObjectMapper();
 
         try {
-            allFortunes = mapper.readValue(
+            allFortunes = Arrays.asList(mapper.readValue(
                     fortunes.getFile(),
-                    mapper.getTypeFactory()
-                            .constructCollectionType(List.class, Fortune.class)
+                    Fortune[].class)
             );
         } catch (IOException e) {
             e.printStackTrace();

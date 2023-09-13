@@ -28,11 +28,9 @@ public class JsonMonthListService implements MonthListService {
         ObjectMapper mapper = new ObjectMapper();
 
         try {
-            monthList = mapper.readValue(
+            monthList = Arrays.asList(mapper.readValue(
                     months.getFile(),
-                    mapper.getTypeFactory()
-                            .constructCollectionType(List.class, Month.class)
-            );
+                    Month[].class));
         } catch (IOException e) {
             e.printStackTrace();
             monthList = new ArrayList<>(0);
